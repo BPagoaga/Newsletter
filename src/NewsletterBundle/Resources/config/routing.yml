@@ -1,3 +1,34 @@
+# src/NewsletterBundle/Resources/config/routing.yml
 newsletter_homepage:
-    path:     /
-    defaults: { _controller: NewsletterBundle:Default:index }
+    path:     /{page}
+    defaults:
+        _controller: NewsletterBundle:Default:index
+        page:        1
+    requirements:
+        page: \d*
+    
+newsletter_view:
+    path:      /advert/{id}
+    defaults:
+        _controller: NewsletterBundle:Default:view
+    requirements:
+        id: \d+
+
+newsletter_add:
+    path:      /add
+    defaults:
+        _controller: NewsletterBundle:Default:add
+
+newsletter_edit:
+    path:      /edit/{id}
+    defaults:
+        _controller: NewsletterBundle:Default:edit
+    requirements:
+        id: \d+
+
+newsletter_delete:
+    path:      /delete/{id}
+    defaults:
+        _controller: NewsletterBundle:Default:delete
+    requirements:
+        id: \d+

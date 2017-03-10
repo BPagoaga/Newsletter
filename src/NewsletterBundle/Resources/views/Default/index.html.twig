@@ -13,7 +13,7 @@
   <ul>
     {% for advert in listAdverts %}
       <li>
-        <a href="{{ path('newsletter_homepage', {'id': advert.id}) }}">
+        <a href="{{ path('newsletter_view', {'id': advert.id}) }}">
           {{ advert.title }}
         </a>
         par {{ advert.author }},

@@ -1,0 +1,4 @@
+https://www.grafikart.fr/formations/sf2-ecommerce/swiftmailer
+https://www.grafikart.fr/formations/sf2-ecommerce/ckeditor
+https://packagist.org/packages/symfony/swiftmailer-bundle
+https://github.com/symfony/swiftmailer-bundle

@@ -3,6 +3,8 @@
 namespace NewsletterBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
@@ -70,4 +72,35 @@ class DefaultController extends Controller
     		'listAdverts' => $listAdverts
     	));
     }
+
+    public function viewAction($id)
+	  {
+	    $advert = array(
+	      'title'   => 'Recherche développpeur Symfony2',
+	      'id'      => $id,
+	      'author'  => 'Alexandre',
+	      'content' => 'Nous recherchons un développeur Symfony2 débutant sur Lyon. Blabla…',
+	      'date'    => new \Datetime()
+	    );
+
+	    return $this->render('NewsletterBundle:Default:view.html.twig', array(
+	      'advert' => $advert
+	    ));
+	}
+
+	public function editAction($id, Request $request)
+	{
+
+		$advert = array(
+		  'title'   => 'Recherche développpeur Symfony',
+		  'id'      => $id,
+		  'author'  => 'Alexandre',
+		  'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
+		  'date'    => new \Datetime()
+		);
+
+		return $this->render('NewsletterBundle:Default:edit.html.twig', array(
+		  'advert' => $advert
+		));
+	}
 }
