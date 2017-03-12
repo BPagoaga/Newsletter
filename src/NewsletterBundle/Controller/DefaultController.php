@@ -103,4 +103,9 @@ class DefaultController extends Controller
 		  'advert' => $advert
 		));
 	}
+
+	public function addAction()
+	{
+		return $this->render('NewsletterBundle:Default:add.html.twig');
+	}
 }

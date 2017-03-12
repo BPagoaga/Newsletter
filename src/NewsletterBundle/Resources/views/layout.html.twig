@@ -18,3 +18,16 @@
   {% endblock %}
 
 {% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script type="text/javascript">
+
+	const app = new Vue({
+		el: '#app',
+		data: { message : 'Hello Vue'}
+	})
+	</script>
+	
+{% endblock %}

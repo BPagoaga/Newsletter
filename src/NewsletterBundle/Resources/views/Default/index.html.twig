@@ -7,6 +7,11 @@
 {% endblock %}
 
 {% block newsletter_body %}
+  {% verbatim %}
+  <div id="app">
+    {{ message }}
+  </div>    
+  {% endverbatim %}
 
   <h2>Liste des annonces</h2>
 
@@ -23,5 +28,7 @@
       <li>Pas (encore !) d'annonces</li>
     {% endfor %}
   </ul>
+
+  <a href="{{ path('newsletter_add') }}" class="btn btn-primary">Nouvelle Newsletter</a>
 
 {% endblock %}
