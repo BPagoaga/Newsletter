@@ -8,19 +8,14 @@
 
 {% block newsletter_body %}
 
-  <h2>Modifier une annonce</h2>
+  <h2>Modifier une newsletter</h2>
 
   {{ include("NewsletterBundle:Default:form.html.twig") }}
 
   <p>
-    Vous éditez une annonce déjà existante, merci de ne pas changer
-    l'esprit général de l'annonce déjà publiée.
-  </p>
-
-  <p>
-    <a href="{{ path('newsletter_view', {'id': advert.id}) }}" class="btn btn-default">
+    <a href="{{ path('newsletter_view', {'id': campaign.id}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-chevron-left"></i>
-      Retour à l'annonce
+      Retour à la newsletter
     </a>
   </p>
 

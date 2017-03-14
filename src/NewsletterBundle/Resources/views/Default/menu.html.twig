@@ -4,10 +4,10 @@
    tout comme le template inclus avec {{ include() }}. #}
 
 <ul class="nav nav-pills nav-stacked">
-  {% for advert in listAdverts %}
+  {% for campaign in listCampaigns %}
     <li>
-      <a href="{{ path('newsletter_view', {'id': advert.id}) }}">
-        {{ advert.title }}
+      <a href="{{ path('newsletter_view', {'id': campaign.id}) }}">
+        {{ campaign.title }}
       </a>
     </li>
   {% endfor %}

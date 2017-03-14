@@ -8,12 +8,37 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction($page)
     {
+    	// Mais on sait qu'une page doit être supérieure ou égale à 1
+	    if ($page < 1) {
+	      // On déclenche une exception NotFoundHttpException, cela va afficher
+	      // une page d'erreur 404 (qu'on pourra personnaliser plus tard d'ailleurs)
+	      throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+	    }
 
-    	// Notre liste d'annonce en dur
+    	// On a donc accès au conteneur :
 
-	    $listAdverts = array(
+    	$mailer = $this->container->get('mailer'); 
+
+
+    	// On récupère le service
+	    $antispam = $this->get('newsletter.antispam');
+
+	    // Je pars du principe que $text contient le texte d'un message quelconque
+	    $text = '...';
+	    if ($antispam->isSpam($text)) {
+	      throw new Exception('Votre message a été détecté comme spam !');
+	    }
+    
+    // Ici le message n'est pas un spam
+
+	        // On ne sait pas combien de pages il y a
+
+
+    	// Notre liste de campagnes
+
+	    $listCampaigns = array(
 
 	      array(
 
@@ -54,7 +79,7 @@ class DefaultController extends Controller
 	    );
 
         return $this->render('NewsletterBundle:Default:index.html.twig', array(
-			'listAdverts' => $listAdverts
+			'listCampaigns' => $listCampaigns
 		));
     }
 
@@ -62,20 +87,20 @@ class DefaultController extends Controller
     {
     	// On fixe en dur une liste ici, bien entendu par la suite
 	    // on la récupérera depuis la BDD !
-	    $listAdverts = array(
+	    $listCampaigns = array(
 	      array('id' => 2, 'title' => 'Recherche développeur Symfony'),
 	      array('id' => 5, 'title' => 'Mission de webmaster'),
 	      array('id' => 9, 'title' => 'Offre de stage webdesigner')
 	    );
 
     	return $this->render('NewsletterBundle:Default:menu.html.twig', array(
-    		'listAdverts' => $listAdverts
+    		'listCampaigns' => $listCampaigns
     	));
     }
 
     public function viewAction($id)
 	  {
-	    $advert = array(
+	    $campaign = array(
 	      'title'   => 'Recherche développpeur Symfony2',
 	      'id'      => $id,
 	      'author'  => 'Alexandre',
@@ -84,14 +109,14 @@ class DefaultController extends Controller
 	    );
 
 	    return $this->render('NewsletterBundle:Default:view.html.twig', array(
-	      'advert' => $advert
+	      'campaign' => $campaign
 	    ));
 	}
 
 	public function editAction($id, Request $request)
 	{
 
-		$advert = array(
+		$campaign = array(
 		  'title'   => 'Recherche développpeur Symfony',
 		  'id'      => $id,
 		  'author'  => 'Alexandre',
@@ -100,12 +125,36 @@ class DefaultController extends Controller
 		);
 
 		return $this->render('NewsletterBundle:Default:edit.html.twig', array(
-		  'advert' => $advert
+		  'campaign' => $campaign
 		));
 	}
 
-	public function addAction()
+	public function addAction(Request $request)
 	{
+		// Si la requête est en POST, c'est que le visiteur a soumis le formulaire
+	    if ($request->isMethod('POST')) {
+	      // Ici, on s'occupera de la création et de la gestion du formulaire
+
+	      $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+
+	      // Puis on redirige vers la page de visualisation de cettte annonce
+	      return $this->redirectToRoute('newsletter_view', array('id' => 5));
+	    }
+
+
 		return $this->render('NewsletterBundle:Default:add.html.twig');
+	}
+
+	public function deleteAction($id)
+	{
+		$campaign = array(
+		  'title'   => 'Recherche développpeur Symfony',
+		  'id'      => $id,
+		  'author'  => 'Alexandre',
+		  'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
+		  'date'    => new \Datetime()
+		);
+		return $this->render('NewsletterBundle:Default:delete.html.twig', array(
+			'campaign' => $campaign));
 	}
 }

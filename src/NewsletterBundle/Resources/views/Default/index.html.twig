@@ -15,17 +15,24 @@
 
   <h2>Liste des annonces</h2>
 
+  <div>
+  {# On affiche tous les messages flash dont le nom est « info » #}
+  {% for message in app.session.flashbag.get('notice') %}
+    <p>Message flash : {{ message }}</p>
+  {% endfor %}
+</div>
+
   <ul>
-    {% for advert in listAdverts %}
+    {% for campaign in listCampaigns %}
       <li>
-        <a href="{{ path('newsletter_view', {'id': advert.id}) }}">
-          {{ advert.title }}
+        <a href="{{ path('newsletter_view', {'id': campaign.id}) }}">
+          {{ campaign.title }}
         </a>
-        par {{ advert.author }},
-        le {{ advert.date|date('d/m/Y') }}
+        par {{ campaign.author }},
+        le {{ campaign.date|date('d/m/Y') }}
       </li>
     {% else %}
-      <li>Pas (encore !) d'annonces</li>
+      <li>Pas (encore !) de campagnes</li>
     {% endfor %}
   </ul>
 

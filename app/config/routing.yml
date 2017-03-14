@@ -1,3 +1,7 @@
+core:
+    resource: "@CoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
 newsletter:
     resource: "@NewsletterBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /newsletter

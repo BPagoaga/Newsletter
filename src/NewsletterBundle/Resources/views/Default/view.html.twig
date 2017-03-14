@@ -8,11 +8,11 @@
 
 {% block newsletter_body %}
 
-  <h2>{{ advert.title }}</h2>
-  <i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
+  <h2>{{ campaign.title }}</h2>
+  <i>Par {{ campaign.author }}, le {{ campaign.date|date('d/m/Y') }}</i>
 
   <div class="well">
-    {{ advert.content }}
+    {{ campaign.content }}
   </div>
 
   <p>
@@ -20,11 +20,11 @@
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour à la liste
     </a>
-    <a href="{{ path('newsletter_edit', {'id': advert.id}) }}" class="btn btn-default">
+    <a href="{{ path('newsletter_edit', {'id': campaign.id}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-edit"></i>
       Modifier l'annonce
     </a>
-    <a href="{{ path('newsletter_delete', {'id': advert.id}) }}" class="btn btn-danger">
+    <a href="{{ path('newsletter_delete', {'id': campaign.id}) }}" class="btn btn-danger">
       <i class="glyphicon glyphicon-trash"></i>
       Supprimer l'annonce
     </a>

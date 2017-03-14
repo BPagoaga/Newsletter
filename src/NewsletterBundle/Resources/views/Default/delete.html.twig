@@ -1,0 +1,13 @@
+{% extends "NewsletterBundle::layout.html.twig" %}
+
+{% block title %}
+  Supprimer une campagne - {{ parent() }}
+{% endblock %}
+
+{% block newsletter_body %}
+
+  <h2>Supprimer une annonce</h2>
+
+  <a class="btn btn-danger">Supprimer l'annonce "{{ campaign.title }}" ?</a>
+
+{% endblock %}
