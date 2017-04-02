@@ -63,11 +63,12 @@ class Contact
      */
     private $site;
 
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
-    }
+    
+    /**
+    * @ORM\Column(name="published", type="boolean")
+    */
+    private $published = true;
+
 
     /**
      * Get id
@@ -223,3 +224,4 @@ class Contact
         return $this->site;
     }
 }
+

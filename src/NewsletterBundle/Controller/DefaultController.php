@@ -2,6 +2,7 @@
 
 namespace NewsletterBundle\Controller;
 
+use NewsletterBundle\Entity\Contact;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -131,6 +132,27 @@ class DefaultController extends Controller
 
 	public function addAction(Request $request)
 	{
+		// Création de l'entité
+	    $contact = new Contact();
+	    $contact->setEmail('bernard.pagoaga@gmail.com');
+	    $contact->setType('C');
+	    $contact->setActive(true);
+	    $contact->setSite(1);
+
+	    // on ne définit pas created_at qui est settée dans le constructeur
+	    // On récupère l'EntityManager
+	    $em = $this->getDoctrine()->getManager();
+
+	    // Étape 1 : On « persiste » l'entité
+	    $em->persist($contact);
+
+		$contact2 = $em->getRepository('NewsletterBundle:Contact')->find(1);
+
+		// On modifie cette annonce, en changeant la date à la date d'aujourd'hui
+		$contact2->setUpdatedAt(New \DateTime('2017-03-21 22:00:00'));
+	    // Étape 2 : On « flush » tout ce qui a été persisté avant
+	    $em->flush();
+
 		// Si la requête est en POST, c'est que le visiteur a soumis le formulaire
 	    if ($request->isMethod('POST')) {
 	      // Ici, on s'occupera de la création et de la gestion du formulaire
